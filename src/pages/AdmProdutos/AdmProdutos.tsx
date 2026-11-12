@@ -1,5 +1,5 @@
-import './AdmProdutos.css'
-import icon from '../../assets/img/icon_jacquin.png'
+import './AdmProdutos.css';
+import icon from '../../assets/img/icon_jacquin.png';
 import Dialog from '../../components/dialog/Dialog';
 import { useState } from 'react';
 

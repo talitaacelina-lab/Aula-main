@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './Dialog.css'
 import { Button, Modal } from 'react-bootstrap';
 
