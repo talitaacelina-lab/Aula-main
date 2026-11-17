@@ -1,13 +1,29 @@
-import { Link } from 'react-router-dom';
 import './listaProdutos.css'
 import imgProduto from '../../assets/img/produtos/le_grand_chocolat.png'
-import usuario from '../../assets/icones/user.svg'
-import estrela from '../../assets/icones/star.svg'
 import Card from '../../components/card/Card';
+import { useEffect, useState } from 'react';
+import type { Produtos } from '../../types/Produto';
+import produtoService from '../../services/produtoService';
+
 
 
 
 function ListaProdutos() {
+  const[produtos, setProdutos] = useState<Produtos[]>([]);
+  const [erro, setErro] = useState('');
+  const [carregando, setCarregando] = useState(true);
+
+
+  useEffect(() => {
+    // Promise.call 
+     produtoService.listar() 
+     .then(lista => {setProdutos(lista), console.log(lista)} )
+     .catch(() => setErro("Não foi possivel carregar os produtos!"))
+     .finally(() => setCarregando(false))
+
+}, [])
+
+
     return (
         <>
       
@@ -19,14 +35,20 @@ function ListaProdutos() {
       <span>Nos Gâteaux</span>
       <hr />
     </div>
+    {carregando && <p>Carregando produto...</p>}
+    {!carregando && !erro && produtos.length === 0 && <p>Nenhum Produto encontrado.</p>}
     <div className="prod_cards">
-      <Card imgProduto={imgProduto} 
-      nome={'Le Grand Chocolat'} 
-      descricao={'Mousse de chocolate belga 70%, praliné de avelãs e biscuit de cacau.'} 
-      valor={185.0} 
+     {produtos.map(produto => { 
+      return <Card 
+      id={produto.id}
+      key={produto.id}
+      imgProduto={`http://localhost:3000${produto.imagem}`}
+      nome={produto.nome} 
+      descricao={produto.descricaoCurta} 
+      valor={produto.precoPorkg} 
       quantidadeAvaliacoes={10} 
       nota={9.5}
-      />
+      />})}
     </div>
   </section>
         </main>

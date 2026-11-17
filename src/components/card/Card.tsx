@@ -7,6 +7,7 @@ import './Card.css'
 
 
 type CardProps = {
+    id: number;
     imgProduto: string;
     nome: string;
     descricao: string;
@@ -16,7 +17,7 @@ type CardProps = {
 }
 
 
-function Card({imgProduto, nome, descricao, valor, quantidadeAvaliacoes, nota} : CardProps) {
+function Card({id, imgProduto, nome, descricao, valor, quantidadeAvaliacoes, nota} : CardProps) {
     return(
         <article className="prod_card">
         <figure>
@@ -26,7 +27,7 @@ function Card({imgProduto, nome, descricao, valor, quantidadeAvaliacoes, nota} :
           />
         </figure>
         <h2>
-          <Link to="/detalheProduto">{nome}</Link>
+          <Link to={`/detalheProduto/${id}`}>{nome}</Link>
         </h2>
         <p className="card_desc">
           {descricao}
